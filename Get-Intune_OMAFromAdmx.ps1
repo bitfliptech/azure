@@ -16,20 +16,17 @@
     Note: Can probably run with an earlier version than Powershell Core 7.x. Script was developed on a Mac and therefore it can be run cross-platform if needed
 
     .PARAMETER AdmxPath
-    Path to .admx file. The required .adml file can be either in the same folder as the .admx file or it has been hard 
+    Path to .admx file. The required .adml file can be either in the same folder as the .admx file or in a subfolder according to the -DefaultLang parameter.
 
     .PARAMETER Excel
     Specifies if Excel spreadsheet should be generated.  If parameter is provided, the .xlsx file will be generated in the same folder as the .admx file
     Note: Requires ImportExcel Module (https://www.powershellgallery.com/packages/ImportExcel)
 
     .PARAMETER DefaultLang
-    Language folder containing the .adml file
+    Language folder name containing the .adml file. The default without providing a value is 'en-us'.
 
     .PARAMETER Dev
     Display Debug Output
-
-    .INPUTS
-    None. You cannot pipe objects to Add-Extension.
 
     .OUTPUTS
     If the -Excel parameter is not provided, then the output is a Powershell PSCustomObject[] that can used in a pipeline 
