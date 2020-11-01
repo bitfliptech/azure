@@ -38,7 +38,7 @@
     .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath .\admx\ReaderADMTemplate\AcrobatReader2020.admx | Out-GridView
 
     .EXAMPLE
-    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath .\admx\ReaderADMTemplate\AcrobatReader2020.admx -Dev -Excel
+    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath .\admx\ReaderADMTemplate\AcrobatReader2020.admx -Excel -Dev
     DEBUG: Excel Output Requested
     DEBUG: Excel File Path: .\admx\ReaderADMTemplate\AcrobatReader2020.xlsx
     DEBUG: Generating Excel File
