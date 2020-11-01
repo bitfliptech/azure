@@ -7,7 +7,7 @@
     .DESCRIPTION
     Parses .admx files and will output either a PSCustomObject[] or an Excel Spreadsheet.
     The corresponding .adml file is used to bring in the Help for policies defined.
-    For policy values that have an enumeration, then samples of the possible values are generated.
+    For policy values that have an enumeration, samples of the possible values are generated.
     If a policy does not have an enumeration of values, then a simple <enabled/> is provided. Depending on your use, you might also need <disabled/>    
     
     OMA-URI Format
@@ -32,13 +32,13 @@
     If the -Excel parameter is not provided, then the output is a Powershell PSCustomObject[] that can used in a pipeline 
 
     .EXAMPLE
-    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath  .\admx\ReaderADMTemplate\AcrobatReader2020.admx
+    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath .\admx\ReaderADMTemplate\AcrobatReader2020.admx
 
     .EXAMPLE
-    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath  .\admx\ReaderADMTemplate\AcrobatReader2020.admx | Out-GridView
+    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath .\admx\ReaderADMTemplate\AcrobatReader2020.admx | Out-GridView
 
     .EXAMPLE
-    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath  .\admx\ReaderADMTemplate\AcrobatReader2020.admx -Dev -Excel
+    .\Get-Intune_OMAFromAdmx.ps1 -AdmxPath .\admx\ReaderADMTemplate\AcrobatReader2020.admx -Dev -Excel
     DEBUG: Excel Output Requested
     DEBUG: Excel File Path: .\admx\ReaderADMTemplate\AcrobatReader2020.xlsx
     DEBUG: Generating Excel File
