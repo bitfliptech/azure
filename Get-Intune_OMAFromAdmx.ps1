@@ -51,7 +51,7 @@
     Author: Nick Bowen
     DateCreated: 10.23.2020
 #>
-
+[CmdletBinding()]
 param (
     [parameter(Mandatory=$true)][String]$AdmxPath,
     [parameter(Mandatory=$false)][switch]$Excel,
@@ -195,6 +195,7 @@ function Get-Policies {
                             scope  = "user"
                         }
                         $Policies += $PolicyObj
+                        break
                     }
                     'Device|Machine|Both' {
                         $PolicyObj = [PSCustomObject]@{
@@ -205,6 +206,7 @@ function Get-Policies {
                             scope  = "device"
                         }
                         $Policies += $PolicyObj
+                        break
                     }
                 }
                 # <enabled/>	<data id=""BrowserSignin"" value=""0""/>                
