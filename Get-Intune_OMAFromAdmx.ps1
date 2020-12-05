@@ -171,17 +171,37 @@ function Get-Policies {
                     $ADLMID = $PolicyDetails.explainText -replace '.*string\.','' -replace '\)|\(',''
                     $HelpTemp = ($ADML.policyDefinitionResources.resources.stringTable.string | Where-Object { $_.id -eq $ADLMID }).'#text'
                     $Local:Help = $HelpTemp -replace ',',' '
-                }                   
-                if ([bool](Select-Xml -Xml $PolicyDetails -XPath 'elements/enum')) {                    
-                    $ValueTemp = ""
-                    if([bool](Select-Xml -Xml $PolicyDetails -XPath 'elements/enum/item/value/decimal')) {
-                        $PolicyDetails.elements.enum.item.value.decimal | ForEach-Object {  
-                            $Local:ValueTemp += "`n<data id=`"$($PolicyDetails.elements.enum.valueName)`" value=`"$([int]$_.value)`"/>"
-                        }                        
-                    } elseif ([bool](Select-Xml -Xml $PolicyDetails -XPath 'elements/enum/item/value/string')) {
-                        $PolicyDetails.elements.enum.item.value.string | ForEach-Object {                            
-                            $Local:ValueTemp += "`n<data id=`"$($PolicyDetails.elements.enum.valueName)`" value=`"$($_)`"/>"
-                        }                           
+                }   
+ 
+                if ([bool]$PolicyDetails.elements) {
+                    $ValueTemp = $null
+                    $PolicyDetails.elements | ForEach-Object {  
+                        $Element = $_                  
+                        # TODO: Add <data id=''/> for elements/list, elements/decimal, elements/text
+                        if ([bool](Select-Xml -Xml $Element -XPath 'enum')) {  
+                            $ID = $Element.enum.id
+                            if([bool](Select-Xml -Xml $Element -XPath 'enum/item/value/decimal')) {
+                                $Element.enum.item.value.decimal | ForEach-Object {  
+                                    $Local:ValueTemp += "`n<data id=`"$ID`" value=`"$([int]$_.value)`"/>"
+                                }                        
+                            } elseif ([bool](Select-Xml -Xml $Element -XPath 'enum/item/value/string')) {
+                                $Element.enum.item.value.string | ForEach-Object {                            
+                                    $Local:ValueTemp += "`n<data id=`"$ID`" value=`"$($_)`"/>"
+                                }                           
+                            }
+                        }
+                        if ([bool](Select-Xml -Xml $Element -XPath 'list')) {
+                            $ID = $Element.list.id
+                            $Local:ValueTemp += "`n<data id=`"$ID`" value=`"`"/>"
+                        }
+                        if ([bool](Select-Xml -Xml $Element -XPath 'decimal')) {
+                            $ID = $Element.decimal.id
+                            $Local:ValueTemp += "`n<data id=`"$ID`" value=`"`"/>"
+                        }
+                        if ([bool](Select-Xml -Xml $Element -XPath 'text')) {
+                            $ID = $Element.text.id
+                            $Local:ValueTemp += "`n<data id=`"$ID`" value=`"`"/>"
+                        }
                     }
                     $Local:Value += $ValueTemp
                 }
